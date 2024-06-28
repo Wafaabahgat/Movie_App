@@ -3,7 +3,11 @@ import BannerHome from "../components/BannerHome";
 import HorizontalScollCard from "../components/HorizontalScollCard";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../slice/axios";
-import { setPlayingData, setTopRated } from "../slice/movie/movie";
+import {
+  setPlayingData,
+  setTopRated,
+  setTvPopular,
+} from "../slice/movie/movie";
 
 interface HomeProps {
   // key: any;
@@ -18,6 +22,7 @@ const Home: FC<HomeProps> = () => {
   const trendingData = useSelector((state) => state.MovieSlice.bannerData);
   const playingData = useSelector((state) => state.MovieSlice.playingdata);
   const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
+  const TvPopularData = useSelector((state) => state.MovieSlice.tvpopularddata);
 
   const fetchNowPlayingData = async () => {
     try {
@@ -39,9 +44,19 @@ const Home: FC<HomeProps> = () => {
     }
   };
 
+  const fetchTvPopularData = async () => {
+    try {
+      const response = await axios.get("/tv/popular");
+      dispatch(setTvPopular(response.data.results));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   useEffect(() => {
     fetchNowPlayingData();
     fetchTopRatedData();
+    fetchTvPopularData();
   }, []);
 
   return (
@@ -56,6 +71,7 @@ const Home: FC<HomeProps> = () => {
 
       <HorizontalScollCard ttl="Now Playing Data" movieData={playingData} />
       <HorizontalScollCard ttl="Top Rated Data" movieData={TopRatedData} />
+      <HorizontalScollCard ttl="Tv Popular Data" movieData={TvPopularData} />
     </div>
   );
 };

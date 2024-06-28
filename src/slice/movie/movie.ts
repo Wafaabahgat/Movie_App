@@ -4,6 +4,7 @@ const initialState = {
   bannerData: [],
   playingdata: [],
   top_rateddata: [],
+  tvpopularddata: [],
   imageURL: "",
 };
 
@@ -26,10 +27,19 @@ export const movieoSlice = createSlice({
     setTopRated: (state, action) => {
       state.top_rateddata = action.payload;
     },
+
+    setTvPopular: (state, action) => {
+      state.tvpopularddata = action.payload;
+    },
   },
 });
 
-export const { setBannerData, setImageURL, setPlayingData, setTopRated } =
-  movieoSlice.actions;
+export const {
+  setBannerData,
+  setImageURL,
+  setPlayingData,
+  setTopRated,
+  setTvPopular,
+} = movieoSlice.actions;
 
 export default movieoSlice.reducer;
