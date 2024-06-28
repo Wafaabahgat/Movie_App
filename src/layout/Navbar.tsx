@@ -19,7 +19,7 @@ const Navbar: FC<NavbarProps> = () => {
   };
 
   return (
-    <header className="fixed top-0 z-40 w-full h-16 bg-opacity-75 bg-neutral-600">
+    <header className="fixed top-0 z-40 w-full h-16 bg-opacity-75 bg-neutral-500">
       <div className="container flex items-center h-full px-2 mx-auto md:px-0">
         <Link className="overflow-auto rounded-full" to="/">
           <img src={logo} alt="Logo" width={70} />

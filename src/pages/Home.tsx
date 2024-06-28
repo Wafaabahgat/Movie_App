@@ -57,7 +57,7 @@ const Home: FC<HomeProps> = () => {
 
   const fetchTvOnAir = async () => {
     try {
-      const response = await axios.get("/tv/on_the_air");
+      const response = await axios.get("/tv/top_rated");
       dispatch(setTvOnAir(response.data.results));
     } catch (error) {
       console.log("error", error);
@@ -84,7 +84,7 @@ const Home: FC<HomeProps> = () => {
       <HorizontalScollCard ttl="Now Playing" movieData={playingData} />
       <HorizontalScollCard ttl="Top Rated Movie" movieData={TopRatedData} />
       <HorizontalScollCard ttl="Popular Tv Show" movieData={TvPopularData} />
-      <HorizontalScollCard ttl="On Air Show" movieData={TvOnAir} />
+      <HorizontalScollCard ttl="Top Rated TV" movieData={TvOnAir} />
     </div>
   );
 };
