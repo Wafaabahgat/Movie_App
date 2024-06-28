@@ -7,6 +7,7 @@ import {
   setPlayingData,
   setTopRated,
   setTvPopular,
+  setTvOnAir,
 } from "../slice/movie/movie";
 
 interface HomeProps {
@@ -23,6 +24,7 @@ const Home: FC<HomeProps> = () => {
   const playingData = useSelector((state) => state.MovieSlice.playingdata);
   const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
   const TvPopularData = useSelector((state) => state.MovieSlice.tvpopularddata);
+  const TvOnAir = useSelector((state) => state.MovieSlice.tvonair);
 
   const fetchNowPlayingData = async () => {
     try {
@@ -44,7 +46,7 @@ const Home: FC<HomeProps> = () => {
     }
   };
 
-  const fetchTvPopularData = async () => {
+  const fetchTvPopularShow = async () => {
     try {
       const response = await axios.get("/tv/popular");
       dispatch(setTvPopular(response.data.results));
@@ -53,10 +55,20 @@ const Home: FC<HomeProps> = () => {
     }
   };
 
+  const fetchTvOnAir = async () => {
+    try {
+      const response = await axios.get("/tv/on_the_air");
+      dispatch(setTvOnAir(response.data.results));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   useEffect(() => {
     fetchNowPlayingData();
     fetchTopRatedData();
-    fetchTvPopularData();
+    fetchTvPopularShow();
+    fetchTvOnAir();
   }, []);
 
   return (
@@ -69,9 +81,10 @@ const Home: FC<HomeProps> = () => {
         tranding={true}
       />
 
-      <HorizontalScollCard ttl="Now Playing Data" movieData={playingData} />
-      <HorizontalScollCard ttl="Top Rated Data" movieData={TopRatedData} />
-      <HorizontalScollCard ttl="Tv Popular Data" movieData={TvPopularData} />
+      <HorizontalScollCard ttl="Now Playing" movieData={playingData} />
+      <HorizontalScollCard ttl="Top Rated Movie" movieData={TopRatedData} />
+      <HorizontalScollCard ttl="Popular Tv Show" movieData={TvPopularData} />
+      <HorizontalScollCard ttl="On Air Show" movieData={TvOnAir} />
     </div>
   );
 };
