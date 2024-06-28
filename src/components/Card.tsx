@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 interface CardProps {}
 
@@ -8,7 +9,10 @@ const Card: FC<CardProps> = ({ data, index, tranding }) => {
   const imageURL = useSelector((state) => state.MovieSlice.imageURL);
 
   return (
-    <div className="w-full max-w-[220px] min-w-[200px] rounded overflow-hidden relative">
+    <Link
+      to={"/" + data.media_type + "/" + data.id}
+      className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block rounded relative hover:scale-105 transition-all"
+    >
       <img src={imageURL + data.poster_path} alt={data.title} />
       <div className="absolute top-2 ">
         {tranding && (
@@ -29,7 +33,7 @@ const Card: FC<CardProps> = ({ data, index, tranding }) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

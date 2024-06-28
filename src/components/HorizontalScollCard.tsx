@@ -1,62 +1,56 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import "swiper/swiper-bundle.min.css";
 import Card from "./Card";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 interface HorizontalScrollCardProps {
   ttl: string;
   movieData: Array<any>;
 }
 
-const breakpoints = {
-  480: {
-    slidesPerView: 2,
-    spaceBetween: 10,
-  },
-  756: {
-    slidesPerView: 3,
-    spaceBetween: 5,
-  },
-  1024: {
-    slidesPerView: 4,
-    spaceBetween: 10,
-  },
-  1280: {
-    slidesPerView: 5,
-    spaceBetween: 10,
-  },
-  1527: {
-    slidesPerView: 6,
-    spaceBetween: 10,
-  },
-};
-
 const HorizontalScrollCard: FC<HorizontalScrollCardProps> = ({
   ttl,
   movieData = [],
 }) => {
+  const movieRef = useRef();
+
+  const handlePreviousmovie = () => {
+    movieRef.current.scrollLeft -= 300;
+  };
+  const handleNextmovie = () => {
+    movieRef.current.scrollLeft += 300;
+  };
+
   return (
     <div className="container px-4 mx-auto my-10 ">
       <h1 className="mb-2 text-xl font-bold text-white lg:text-3xl">{ttl}</h1>
 
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={1}
-        navigation={true}
-        pagination={{ clickable: true }}
-        breakpoints={breakpoints}
-        scrollbar={{ draggable: true }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
-        }}
-      >
-        {movieData.map((data, index) => (
-          <SwiperSlide key={data.id + "ttl" + index}>
+      <div className="relative">
+        <div
+          ref={movieRef}
+          className="relative z-10 grid grid-flow-col gap-6 overflow-hidden overflow-x-scroll transition-all grid-cols-plog scroll-smooth scrolbar-none"
+        >
+          {movieData.map((data, index) => (
             <Card data={data} index={index + 1} tranding={true} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+          ))}
+        </div>
+
+        {/* <div className="absolute top-0 items-center justify-between hidden w-full h-full lg:flex"> */}
+        <div className="absolute top-0 flex items-center justify-between w-full h-full">
+          <button
+            onClick={handlePreviousmovie}
+            className="z-10 p-1 -ml-2 text-black bg-white rounded-full"
+          >
+            <FaAngleLeft />
+          </button>
+          <button
+            onClick={handleNextmovie}
+            className="z-10 p-1 -mr-2 text-black bg-white rounded-full"
+          >
+            <FaAngleRight />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

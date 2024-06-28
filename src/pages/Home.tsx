@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import BannerHome from "../components/BannerHome";
 import HorizontalScollCard from "../components/HorizontalScollCard";
 import { useSelector } from "react-redux";
+import axios from "../slice/axios";
 
 interface HomeProps {
   // key: any;
@@ -11,12 +12,30 @@ interface HomeProps {
 }
 
 const Home: FC<HomeProps> = () => {
+  const [playingData, setPlayingData] = useState();
   const trendingData = useSelector((state) => state.MovieSlice.bannerData);
+
+  const fetchNowPlayingData = async () => {
+    try {
+      const response = await axios.get("/movie/now_playing");
+      setPlayingData(response.data.results);
+      //console.log("response", response.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNowPlayingData();
+  }, []);
+
 
   return (
     <div>
       <BannerHome />
+
       <HorizontalScollCard ttl="Trending Data" movieData={trendingData} />
+      <HorizontalScollCard ttl="Now Playing Data" movieData={playingData} />
     </div>
   );
 };
