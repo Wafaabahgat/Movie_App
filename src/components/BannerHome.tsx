@@ -7,9 +7,8 @@ interface BannerHomeProps {}
 const BannerHome: FC<BannerHomeProps> = () => {
   const bannerData = useSelector((state) => state.MovieSlice.bannerData);
   const imageURL = useSelector((state) => state.MovieSlice.imageURL);
-  const [currentImage, setCurrentImage] = useState(0);
 
-  console.log(currentImage);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const handleprevious = () => {
     if (currentImage > 0) {
@@ -37,6 +36,7 @@ const BannerHome: FC<BannerHomeProps> = () => {
   return (
     <section className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
+        {/* bannerData */}
         {bannerData.map((e, i) => {
           return (
             <div

@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   bannerData: [],
+  playingdata: [],
+  top_rateddata: [],
   imageURL: "",
 };
 
@@ -16,9 +18,18 @@ export const movieoSlice = createSlice({
     setImageURL: (state, action) => {
       state.imageURL = action.payload;
     },
+
+    setPlayingData: (state, action) => {
+      state.playingdata = action.payload;
+    },
+
+    setTopRated: (state, action) => {
+      state.top_rateddata = action.payload;
+    },
   },
 });
 
-export const { setBannerData, setImageURL } = movieoSlice.actions;
+export const { setBannerData, setImageURL, setPlayingData, setTopRated } =
+  movieoSlice.actions;
 
 export default movieoSlice.reducer;

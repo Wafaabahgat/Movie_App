@@ -6,17 +6,20 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 interface HorizontalScrollCardProps {
   ttl: string;
   movieData: Array<any>;
+  tranding?: boolean;
 }
 
 const HorizontalScrollCard: FC<HorizontalScrollCardProps> = ({
   ttl,
   movieData = [],
+  tranding,
 }) => {
   const movieRef = useRef();
 
   const handlePreviousmovie = () => {
     movieRef.current.scrollLeft -= 300;
   };
+
   const handleNextmovie = () => {
     movieRef.current.scrollLeft += 300;
   };
@@ -31,7 +34,7 @@ const HorizontalScrollCard: FC<HorizontalScrollCardProps> = ({
           className="relative z-10 grid grid-flow-col gap-6 overflow-hidden overflow-x-scroll transition-all grid-cols-plog scroll-smooth scrolbar-none"
         >
           {movieData.map((data, index) => (
-            <Card data={data} index={index + 1} tranding={true} />
+            <Card data={data} index={index + 1} tranding={tranding} />
           ))}
         </div>
 

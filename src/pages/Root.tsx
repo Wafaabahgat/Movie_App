@@ -17,7 +17,7 @@ const Root = () => {
     try {
       const response = await axios.get("/trending/all/week");
       dispatch(setBannerData(response.data.results));
-      // console.log("response", response);
+       console.log("response", response);
     } catch (error) {
       console.log("error", error);
     }
