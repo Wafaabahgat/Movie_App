@@ -1,9 +1,18 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => {
-  return <div className="text-3xl font-bold underline">Footer</div>;
+  return (
+    <footer className="py-2 text-center bg-neutral-600 bg-opacity-35 text-neutral-400">
+      <div className="flex items-center justify-center gap-4">
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+      </div>
+      <p className="text-sm">Created By Dynamic Coding with Wevy</p>
+    </footer>
+  );
 };
 
 export default Footer;
