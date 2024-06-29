@@ -88,7 +88,7 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
   }, []);
 
   return (
-    <div className="py-16">
+    <div className="px-1.5 py-16">
       <div className="container mx-auto">
         <h3 className="my-3 text-lg font-semibold capitalize lg:text-xl">
           Popular {params.explore} show
