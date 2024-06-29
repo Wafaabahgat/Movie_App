@@ -10,21 +10,31 @@ import {
   setTvOnAir,
 } from "../slice/movie/movie";
 
-interface HomeProps {
-  // key: any;
-  // data: [];
-  // index: any;
-  // tranding: boolean;
-}
+interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
   const dispatch = useDispatch();
   // const [playingData, setPlayingData] = useState();
   const trendingData = useSelector((state) => state.MovieSlice.bannerData);
   const playingData = useSelector((state) => state.MovieSlice.playingdata);
-  const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
   const TvPopularData = useSelector((state) => state.MovieSlice.tvpopularddata);
   const TvOnAir = useSelector((state) => state.MovieSlice.tvonair);
+  const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
+
+  const fetchTopRatedData = async () => {
+    try {
+      const response = await axios.get("/movie/top_rated");
+      dispatch(setTopRated(response.data.results));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  // const TopRatedData = useFetchData(
+  //   "/movie/top_rated",
+  //   setTopRated,
+  //   "top_rateddata"
+  // );
 
   const fetchNowPlayingData = async () => {
     try {
@@ -32,15 +42,6 @@ const Home: FC<HomeProps> = () => {
       dispatch(setPlayingData(response.data.results));
       //  setPlayingData(response.data.results);
       //console.log("response", response.data.results);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const fetchTopRatedData = async () => {
-    try {
-      const response = await axios.get("/movie/top_rated");
-      dispatch(setTopRated(response.data.results));
     } catch (error) {
       console.log("error", error);
     }
