@@ -1,10 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import axios from "../slice/axios";
 import { useEffect } from "react";
+import { Action } from "@reduxjs/toolkit";
+import { RootState } from "../store/store";
 
-const useFetchData = (url, action, states) => {
+interface useFetchDataProps {
+  states: string;
+  url: string;
+  action: (data: any) => Action;
+}
+
+const useFetchData = ({ states, action, url }: useFetchDataProps) => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.MovieSlice[states]);
+
+  const data = useSelector((state: RootState) => state.MovieSlice[`${states}`]);
 
   useEffect(() => {
     const fetchData = async () => {

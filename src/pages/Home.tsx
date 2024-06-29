@@ -9,6 +9,7 @@ import {
   setTvPopular,
   setTvOnAir,
 } from "../slice/movie/movie";
+import useFetchData from "../hooks/usefetchData";
 
 interface HomeProps {}
 
@@ -16,25 +17,28 @@ const Home: FC<HomeProps> = () => {
   const dispatch = useDispatch();
   // const [playingData, setPlayingData] = useState();
   const trendingData = useSelector((state) => state.MovieSlice.bannerData);
+
   const playingData = useSelector((state) => state.MovieSlice.playingdata);
   const TvPopularData = useSelector((state) => state.MovieSlice.tvpopularddata);
-  const TvOnAir = useSelector((state) => state.MovieSlice.tvonair);
-  const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
+  // const TvOnAir = useSelector((state) => state.MovieSlice.tvonair);
+  // const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
 
-  const fetchTopRatedData = async () => {
-    try {
-      const response = await axios.get("/movie/top_rated");
-      dispatch(setTopRated(response.data.results));
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const fetchTopRatedData = async () => {
+  //   try {
+  //     const response = await axios.get("/movie/top_rated");
+  //     dispatch(setTopRated(response.data.results));
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-  // const TopRatedData = useFetchData(
-  //   "/movie/top_rated",
-  //   setTopRated,
-  //   "top_rateddata"
-  // );
+  const TopRatedData = useFetchData({
+    url: "/movie/top_rated",
+    action: setTopRated,
+    states: "top_rateddata",
+  });
+
+  console.log("TopRatedData", TopRatedData);
 
   const fetchNowPlayingData = async () => {
     try {
@@ -67,7 +71,7 @@ const Home: FC<HomeProps> = () => {
 
   useEffect(() => {
     fetchNowPlayingData();
-    fetchTopRatedData();
+    // fetchTopRatedData();
     fetchTvPopularShow();
     fetchTvOnAir();
   }, []);
@@ -97,11 +101,11 @@ const Home: FC<HomeProps> = () => {
         movieData={TvPopularData}
         media_type={"tv"}
       />
-      <HorizontalScollCard
+      {/* <HorizontalScollCard
         ttl="Top Rated TV"
         movieData={TvOnAir}
         media_type={"tv"}
-      />
+      /> */}
     </div>
   );
 };
