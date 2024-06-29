@@ -39,7 +39,7 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
       console.log("error", error);
     }
   };
-  
+
   useEffect(() => {
     setPageNum(1);
     setData([]);

@@ -1,8 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import BannerHome from "../components/BannerHome";
 import HorizontalScollCard from "../components/HorizontalScollCard";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "../slice/axios";
+import { useSelector } from "react-redux";
+
 import {
   setPlayingData,
   setTopRated,
@@ -14,23 +14,7 @@ import useFetchData from "../hooks/usefetchData";
 interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
-  const dispatch = useDispatch();
-  // const [playingData, setPlayingData] = useState();
   const trendingData = useSelector((state) => state.MovieSlice.bannerData);
-
-  const playingData = useSelector((state) => state.MovieSlice.playingdata);
-  const TvPopularData = useSelector((state) => state.MovieSlice.tvpopularddata);
-  // const TvOnAir = useSelector((state) => state.MovieSlice.tvonair);
-  // const TopRatedData = useSelector((state) => state.MovieSlice.top_rateddata);
-
-  // const fetchTopRatedData = async () => {
-  //   try {
-  //     const response = await axios.get("/movie/top_rated");
-  //     dispatch(setTopRated(response.data.results));
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
 
   const TopRatedData = useFetchData({
     url: "/movie/top_rated",
@@ -38,43 +22,23 @@ const Home: FC<HomeProps> = () => {
     states: "top_rateddata",
   });
 
-  console.log("TopRatedData", TopRatedData);
+  const PlayingData = useFetchData({
+    url: "/movie/now_playing",
+    action: setPlayingData,
+    states: "playingdata",
+  });
 
-  const fetchNowPlayingData = async () => {
-    try {
-      const response = await axios.get("/movie/now_playing");
-      dispatch(setPlayingData(response.data.results));
-      //  setPlayingData(response.data.results);
-      //console.log("response", response.data.results);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  const TvPopularData = useFetchData({
+    url: "/tv/popular",
+    action: setTvPopular,
+    states: "tvpopularddata",
+  });
 
-  const fetchTvPopularShow = async () => {
-    try {
-      const response = await axios.get("/tv/popular");
-      dispatch(setTvPopular(response.data.results));
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const fetchTvOnAir = async () => {
-    try {
-      const response = await axios.get("/tv/top_rated");
-      dispatch(setTvOnAir(response.data.results));
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchNowPlayingData();
-    // fetchTopRatedData();
-    fetchTvPopularShow();
-    fetchTvOnAir();
-  }, []);
+  const TvOnAir = useFetchData({
+    url: "/tv/top_rated",
+    action: setTvOnAir,
+    states: "tvonair",
+  });
 
   return (
     <div>
@@ -84,11 +48,12 @@ const Home: FC<HomeProps> = () => {
         ttl="Trending Data"
         movieData={trendingData}
         tranding={true}
+        media_type={"movie"}
       />
 
       <HorizontalScollCard
         ttl="Now Playing"
-        movieData={playingData}
+        movieData={PlayingData}
         media_type={"movie"}
       />
       <HorizontalScollCard
@@ -101,11 +66,11 @@ const Home: FC<HomeProps> = () => {
         movieData={TvPopularData}
         media_type={"tv"}
       />
-      {/* <HorizontalScollCard
+      <HorizontalScollCard
         ttl="Top Rated TV"
         movieData={TvOnAir}
         media_type={"tv"}
-      /> */}
+      />
     </div>
   );
 };
