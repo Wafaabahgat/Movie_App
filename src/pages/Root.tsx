@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import MobileNavigation from "../layout/MobileNavigation";
@@ -9,9 +9,6 @@ import { setBannerData, setImageURL } from "../slice/movie/movie";
 
 const Root = () => {
   const dispatch = useDispatch();
-
-  const location = useLocation().pathname;
-  const isDash = location.split("/").find((e) => e === "dashboard");
 
   const fetchTrendingData = async () => {
     try {
@@ -34,22 +31,20 @@ const Root = () => {
     }
   };
 
-  
-
   useEffect(() => {
     fetchTrendingData();
     fetchConfiguration();
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full">
-      {isDash == "dashboard" ? null : <Navbar />}
-      <div className="mt-16">
+    <main className="pb-14 lg:pb-0">
+      <Navbar />
+      <div className="min-h-[90vh]">
         <Outlet />
       </div>
       <Footer />
       <MobileNavigation />
-    </div>
+    </main>
   );
 };
 

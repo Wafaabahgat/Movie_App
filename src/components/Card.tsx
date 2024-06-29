@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 
 interface CardProps {}
 
-const Card: FC<CardProps> = ({ data, index, tranding }) => {
+const Card: FC<CardProps> = ({ data, index, tranding, media_type }) => {
   const imageURL = useSelector((state) => state.MovieSlice.imageURL);
-
+  const mediaType = data.media_type ?? media_type;
+  
   return (
     <Link
-      to={"/" + data.media_type + "/" + data.id}
-      className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block rounded relative hover:scale-105 transition-all"
+      to={"/" + mediaType + "/" + data.id}
+      className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden rounded relative hover:scale-105 transition-all block"
     >
       <img src={imageURL + data.poster_path} alt={data.title} />
       <div className="absolute top-2 ">

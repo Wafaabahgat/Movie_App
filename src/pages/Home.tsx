@@ -82,10 +82,26 @@ const Home: FC<HomeProps> = () => {
         tranding={true}
       />
 
-      <HorizontalScollCard ttl="Now Playing" movieData={playingData} />
-      <HorizontalScollCard ttl="Top Rated Movie" movieData={TopRatedData} />
-      <HorizontalScollCard ttl="Popular Tv Show" movieData={TvPopularData} />
-      <HorizontalScollCard ttl="Top Rated TV" movieData={TvOnAir} />
+      <HorizontalScollCard
+        ttl="Now Playing"
+        movieData={playingData}
+        media_type={"movie"}
+      />
+      <HorizontalScollCard
+        ttl="Top Rated Movie"
+        movieData={TopRatedData}
+        media_type={"movie"}
+      />
+      <HorizontalScollCard
+        ttl="Popular Tv Show"
+        movieData={TvPopularData}
+        media_type={"tv"}
+      />
+      <HorizontalScollCard
+        ttl="Top Rated TV"
+        movieData={TvOnAir}
+        media_type={"tv"}
+      />
     </div>
   );
 };
