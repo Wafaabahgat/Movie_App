@@ -7,6 +7,7 @@ const initialState = {
   tvpopularddata: [],
   discoverTv: [],
   tvonair: [],
+  searchData: [],
   imageURL: "",
 };
 
@@ -37,8 +38,13 @@ export const movieoSlice = createSlice({
     setTvOnAir: (state, action) => {
       state.tvonair = action.payload;
     },
+
     setDiscoverTv: (state, action) => {
       state.discoverTv = action.payload;
+    },
+
+    setSearchData: (state, action) => {
+      state.searchData = action.payload;
     },
   },
 });
@@ -51,6 +57,7 @@ export const {
   setTvPopular,
   setTvOnAir,
   setDiscoverTv,
+  setSearchData,
 } = movieoSlice.actions;
 
 export default movieoSlice.reducer;

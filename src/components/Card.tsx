@@ -7,14 +7,22 @@ interface CardProps {}
 
 const Card: FC<CardProps> = ({ data, index, tranding, media_type }) => {
   const imageURL = useSelector((state) => state.MovieSlice.imageURL);
+
   const mediaType = data.media_type ?? media_type;
-  
+
   return (
     <Link
       to={"/" + mediaType + "/" + data.id}
       className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden rounded relative hover:scale-105 transition-all block"
     >
-      <img src={imageURL + data.poster_path} alt={data.title} />
+      {data?.poster_path ? (
+        <img src={imageURL + data.poster_path} alt={data.title} />
+      ) : (
+        <div className="flex items-center justify-center w-full h-full bg-neutral-800">
+          No image found
+        </div>
+      )}
+
       <div className="absolute top-2 ">
         {tranding && (
           <div className="px-4 py-1 overflow-hidden rounded-r-full bg-black/50 backdrop-blur-3xl">

@@ -1,21 +1,27 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import logo from "../assets/logo.jpg";
-import Input from "../components/Ui/Input";
+import Input from "../components/ui/Input";
 import profileIcon from "../assets/profile.png";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import { navigation } from "../data/data";
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = () => {
-  const [searchInput, setSearchInput] = useState("");
+  const location = useLocation();
+  const removeSpace = location?.search?.slice(3)?.split("%20")?.join(" ");
+  const [searchInput, setSearchInput] = useState(removeSpace);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
+  useEffect(() => {
     if (searchInput) {
-      navigate(`/search?iq=${searchInput}`);
+      navigate(`/search?q=${searchInput}`);
     }
+  }, [searchInput]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -26,7 +32,7 @@ const Navbar: FC<NavbarProps> = () => {
         </Link>
 
         <nav className="items-center hidden gap-1 ml-5 lg:flex">
-          {navigation.map((nav, index) => {
+          {navigation.map((nav) => {
             return (
               <div>
                 <NavLink

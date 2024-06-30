@@ -50,33 +50,6 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
     fetchData();
   }, [pageNum]);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get("/discover/tv");
-  //     // const response = await axios.get(`/discover/${params.explore}`, {
-  //     //   params: {
-  //     //     page: pageNum,
-  //     //   },
-  //     // });
-
-  //     // if (response.data.results) {
-  //     //   setData((prev) => [...prev, ...response.data.results]);
-  //     // } else {
-  //     //   console.log("ghjkl;");
-  //     // }
-
-  //     console.log("responserr", response);
-
-  //     setTotalPageNo(response.data.total_pages);
-  //   } catch (error) {
-  //     console.log("Error fetching data:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       setPageNum((preve) => preve + 1);
@@ -95,7 +68,7 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
         </h3>
 
         <div className="grid justify-center gap-6 grid-cols-plog lg:justify-start">
-          {DiscoverTv.map((exploreData, index) => {
+          {DiscoverTv.map((exploreData) => {
             return (
               <Card
                 data={exploreData}
