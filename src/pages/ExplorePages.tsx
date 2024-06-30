@@ -11,7 +11,6 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [pageNum, setPageNum] = useState(1);
-  const [data, setData] = useState([]);
   const [totalPageNo, setTotalPageNo] = useState(0);
 
   const DiscoverTv = useSelector((state) => state.MovieSlice.discoverTv);
@@ -26,10 +25,6 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
         },
       });
 
-      setData((preve) => {
-        return [...preve, ...response.data.results];
-      });
-
       setTotalPageNo(response.data.total_pages);
 
       dispatch(setDiscoverTv(response.data.results));
@@ -42,7 +37,7 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
 
   useEffect(() => {
     setPageNum(1);
-    setData([]);
+    setDiscoverTv([]);
     fetchData();
   }, [params.explore]);
 
