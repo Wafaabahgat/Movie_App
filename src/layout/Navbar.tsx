@@ -10,7 +10,7 @@ interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = () => {
   const location = useLocation();
-  const removeSpace = location?.search?.slice(3)?.split("%20")?.join(" ");
+  const removeSpace = location?.search?.slice(3)?.split("%20")?.join(" "); 
   const [searchInput, setSearchInput] = useState(removeSpace);
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Navbar: FC<NavbarProps> = () => {
 
   return (
     <header className="fixed top-0 z-40 w-full h-16 bg-opacity-75 bg-neutral-500">
-      <div className="container flex items-center h-full px-2 mx-auto md:px-0">
+      <div className="container flex items-center h-full gap-2 px-2 mx-auto md:px-0">
         <Link className="overflow-auto rounded-full" to="/">
           <img src={logo} alt="Logo" width={70} />
         </Link>
