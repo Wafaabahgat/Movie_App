@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { setDiscoverTv } from "../slice/movie/movie";
+import { RootState } from "../store/store";
 
 interface ExplorePagesProps {}
 
@@ -13,7 +14,7 @@ const ExplorePages: FC<ExplorePagesProps> = () => {
   const [pageNum, setPageNum] = useState(1);
   const [totalPageNo, setTotalPageNo] = useState(0);
 
-  const DiscoverTv = useSelector((state) => state.MovieSlice.discoverTv);
+  const DiscoverTv = useSelector((state:RootState) => state.MovieSlice.discoverTv);
 
   console.log("params", params.explore);
 

@@ -14,7 +14,7 @@ const HorizontalScrollCard: FC<HorizontalScrollCardProps> = ({
   ttl,
   movieData = [],
   tranding,
-  media_type
+  media_type,
 }) => {
   const movieRef = useRef();
 

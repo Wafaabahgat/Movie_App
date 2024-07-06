@@ -9,6 +9,9 @@ const initialState = {
   tvonair: [],
   searchData: [],
   details: [],
+  credits: [],
+  similar: [],
+  recommData: [],
   imageURL: "",
 };
 
@@ -51,6 +54,18 @@ export const movieoSlice = createSlice({
     setDetails: (state, action) => {
       state.details = action.payload;
     },
+
+    setCredits: (state, action) => {
+      state.credits = action.payload;
+    },
+
+    setSimilarData: (state, action) => {
+      state.similar = action.payload;
+    },
+
+    setRecommData: (state, action) => {
+      state.recommData = action.payload;
+    },
   },
 });
 
@@ -63,7 +78,10 @@ export const {
   setTvOnAir,
   setDiscoverTv,
   setSearchData,
-  setDetails
+  setDetails,
+  setCredits,
+  setSimilarData,
+  setRecommData,
 } = movieoSlice.actions;
 
 export default movieoSlice.reducer;
