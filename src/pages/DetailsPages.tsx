@@ -1,13 +1,19 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { setCredits, setDetails, setSimilarData } from "../slice/movie/movie";
+import {
+  setCredits,
+  setDetails,
+  setRecommData,
+  setSimilarData,
+} from "../slice/movie/movie";
 import useFetchDetails from "../hooks/usefetchDetails";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import moment from "moment";
 import Divider from "../components/Divider";
-import HorizontalScrollCard from "../components/HorizontalScollCard";
+
+import HorizontalScollCard from "../components/HorizontalScollCard";
 import useFetchData from "../hooks/usefetchData";
 
 interface DetailsPagesProps {}
@@ -36,17 +42,9 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
     states: "similar",
   });
 
-  // const { data: recommData } = useFetchDetails({
-  //   url: `/${params?.explore}/${params?.id}/recommendations`,
-  //   action: setRecommData,
-  //   states: "recommData",
-  // });
-
-  // tv/{series_id}/similar
-  console.log(data, "dat");
-  console.log(castData, "castData");
-  console.log(SimilarData, "similarData");
-  // console.log(recommData, "recommData");
+  // console.log(data, "dat");
+  // console.log(castData, "castData");
+  // console.log(SimilarData, "similarData");
 
   const duration = (data?.runtime / 60)?.toFixed(1)?.split(".");
 
@@ -158,28 +156,11 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
       <Divider />
 
       <div>
-        {SimilarData && (
-          <HorizontalScrollCard
-            data={SimilarData}
-            heading={"Similar " + params?.explore}
-            media_type={params?.explore}
-          />
-        )}
-        {/* {SimilarData ? (
-          <HorizontalScrollCard
-            data={SimilarData}
-            heading={"Similar " + params?.explore}
-            media_type={params?.explore}
-          />
-        ) : (
-          "No HorizontalScrollCard"
-        )} */}
-
-        {/* <HorizontalScrollCard
-          data={recommData}
-          heading={"Recommendation " + params?.explore}
+        <HorizontalScollCard
+          movieData={SimilarData}
+          ttl={"Similar " + params?.explore}
           media_type={params?.explore}
-        /> */}
+        />
       </div>
     </div>
   );
