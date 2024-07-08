@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import logo from "../assets/logo.jpg";
 import Input from "../components/ui/Input";
 import profileIcon from "../assets/profile.png";
@@ -20,7 +20,7 @@ const Navbar: FC<NavbarProps> = () => {
     }
   }, [searchInput]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: FormEvent) => {
     e.preventDefault();
   };
 
