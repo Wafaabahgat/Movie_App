@@ -4,16 +4,15 @@ import { useEffect } from "react";
 import { Action } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 
-interface useFetchDataProps {
-  states: string;
+interface UseFetchDataProps {
+  states: keyof RootState['MovieSlice'];
   url: string;
   action: (data: any) => Action;
 }
 
-const useFetchData = ({ states, action, url }: useFetchDataProps) => {
+const useFetchData = ({ states, action, url }: UseFetchDataProps) => {
   const dispatch = useDispatch();
-
-  const data = useSelector((state: RootState) => state.MovieSlice[`${states}`]);
+  const data = useSelector((state: RootState) => state.MovieSlice[states]);
 
   useEffect(() => {
     const fetchData = async () => {
