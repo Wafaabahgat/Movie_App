@@ -17,7 +17,6 @@ const SearchPages: FC<SearchPagesProps> = () => {
 
   const query = location.search.slice(3);
 
-  // console.log("location");
 
   const dataSearch = useSelector((state:RootState) => state.MovieSlice.searchData);
 
@@ -26,7 +25,6 @@ const SearchPages: FC<SearchPagesProps> = () => {
       const response = await axios.get(`search/multi`, {
         params: {
           query: location?.search?.slice(3),
-          // query: query,
           page: pageNum,
         },
       });
@@ -71,15 +69,7 @@ const SearchPages: FC<SearchPagesProps> = () => {
 
   return (
     <div className="py-16">
-      {/* <div className="lg:hidden my-2 mx-1 sticky top-[70px] z-30">
-        <input
-          type="text"
-          placeholder="Search here..."
-          onChange={(e) => navigate(`/search?q=${e.target.value}`)}
-          value={query?.split("%20")?.join(" ")}
-          className="w-full px-4 py-1 text-lg bg-white rounded-full text-neutral-900 "
-        />
-      </div> */}
+     
 
       <div className="container mx-auto">
         <h3 className="my-3 text-lg font-semibold capitalize lg:text-xl">

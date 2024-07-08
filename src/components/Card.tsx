@@ -15,7 +15,7 @@ interface CardProps {
     vote_average: number;
   };
   index: number;
-  tranding: boolean;
+  tranding?: boolean;
   media_type: string;
 }
 
