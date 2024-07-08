@@ -1,12 +1,26 @@
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import { RootState } from "../store/store";
 
 interface BannerHomeProps {}
 
+interface BannerData {
+  id: number;
+  backdrop_path: string;
+  title?: string;
+  name?: string;
+  overview: string;
+  vote_average: number;
+  popularity: number;
+}
+
+
 const BannerHome: FC<BannerHomeProps> = () => {
-  const bannerData = useSelector((state) => state.MovieSlice.bannerData);
-  const imageURL = useSelector((state) => state.MovieSlice.imageURL);
+  // const bannerData = useSelector((state: RootState) => state.MovieSlice.bannerData);
+  const bannerData = useSelector((state: RootState) => state.MovieSlice.bannerData as BannerData[]);
+
+  const imageURL = useSelector((state: RootState) => state.MovieSlice.imageURL);
 
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -30,6 +44,7 @@ const BannerHome: FC<BannerHomeProps> = () => {
         setCurrentImage(0);
       }
     }, 4000);
+    
     return () => clearInterval(interval);
   }, [imageURL, bannerData, currentImage]);
 
@@ -37,7 +52,7 @@ const BannerHome: FC<BannerHomeProps> = () => {
     <section className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
         {/* bannerData */}
-        {bannerData.map((e, i) => {
+        {bannerData.map((e) => {
           return (
             <div
               key={e.id}

@@ -2,11 +2,25 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { RootState } from "../store/store";
 
-interface CardProps {}
+interface CardProps {
+  data: {
+    id: number;
+    poster_path: string;
+    title?: string;
+    name?: string;
+    media_type?: string;
+    release_date?: string;
+    vote_average: number;
+  };
+  index: number;
+  tranding: boolean;
+  media_type: string;
+}
 
 const Card: FC<CardProps> = ({ data, index, tranding, media_type }) => {
-  const imageURL = useSelector((state) => state.MovieSlice.imageURL);
+  const imageURL = useSelector((state: RootState) => state.MovieSlice.imageURL);
 
   const mediaType = data.media_type ?? media_type;
 

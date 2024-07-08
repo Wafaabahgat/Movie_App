@@ -1,5 +1,4 @@
 import { FC, useRef } from "react";
-import "swiper/swiper-bundle.min.css";
 import Card from "./Card";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -10,21 +9,29 @@ interface HorizontalScrollCardProps {
   tranding?: boolean;
 }
 
+
 const HorizontalScrollCard: FC<HorizontalScrollCardProps> = ({
   ttl,
   movieData = [],
   tranding,
   media_type,
 }) => {
-  const movieRef = useRef();
+  const movieRef = useRef<HTMLDivElement>(null);
+  
+  
 
   const handlePreviousmovie = () => {
-    movieRef.current.scrollLeft -= 300;
+    if (movieRef.current) {
+      movieRef.current.scrollLeft -= 300;
+    }
   };
 
   const handleNextmovie = () => {
-    movieRef.current.scrollLeft += 300;
+    if (movieRef.current) {
+      movieRef.current.scrollLeft += 300;
+    }
   };
+
 
   return (
     <div className="container px-4 mx-auto my-10 ">

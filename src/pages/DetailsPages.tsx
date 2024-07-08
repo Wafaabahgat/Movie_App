@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import {
   setCredits,
   setDetails,
-  setRecommData,
   setSimilarData,
 } from "../slice/movie/movie";
 import useFetchDetails from "../hooks/usefetchDetails";
