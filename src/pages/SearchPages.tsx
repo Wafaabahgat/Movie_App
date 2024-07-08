@@ -1,16 +1,16 @@
 import { FC, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "../slice/axios";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchData } from "../slice/movie/movie";
+import { RootState } from "../store/store";
 
 interface SearchPagesProps {}
 
 const SearchPages: FC<SearchPagesProps> = () => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
   const location = useLocation();
   const [pageNum, setPageNum] = useState(1);
   const [data, setData] = useState([]);
@@ -19,7 +19,7 @@ const SearchPages: FC<SearchPagesProps> = () => {
 
   // console.log("location");
 
-  const dataSearch = useSelector((state) => state.MovieSlice.searchData);
+  const dataSearch = useSelector((state:RootState) => state.MovieSlice.searchData);
 
   const fetchData = async () => {
     try {

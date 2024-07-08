@@ -10,11 +10,13 @@ import {
   setTvOnAir,
 } from "../slice/movie/movie";
 import useFetchData from "../hooks/usefetchData";
+import { RootState } from "../store/store";
+import Loader from "../components/Loader";
 
 interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
-  const trendingData = useSelector((state) => state.MovieSlice.bannerData);
+  const trendingData = useSelector((state:RootState) => state.MovieSlice.bannerData);
 
   const TopRatedData = useFetchData({
     url: "/movie/top_rated",
@@ -39,6 +41,11 @@ const Home: FC<HomeProps> = () => {
     action: setTvOnAir,
     states: "tvonair",
   });
+
+  if (!trendingData || !TopRatedData || !PlayingData || !TvPopularData || !TvOnAir) {
+    return <Loader />;
+  }
+
 
   return (
     <div>
