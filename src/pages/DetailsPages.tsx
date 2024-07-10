@@ -1,10 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  setCredits,
-  setDetails,
-  setSimilarData,
-} from "../slice/movie/movie";
+import { setCredits, setDetails, setSimilarData } from "../slice/movie/movie";
 import useFetchDetails from "../hooks/usefetchDetails";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
@@ -14,12 +10,15 @@ import Divider from "../components/Divider";
 
 import HorizontalScollCard from "../components/HorizontalScollCard";
 import useFetchData from "../hooks/usefetchData";
+import VideoPlay from "../components/VideoPlay";
 
 interface DetailsPagesProps {}
 
 const DetailsPages: FC<DetailsPagesProps> = () => {
   const params = useParams();
   console.log(params, "params");
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideoId, setPlayVideoId] = useState("");
 
   const imageURL = useSelector((state: RootState) => state.MovieSlice.imageURL);
 
@@ -44,6 +43,10 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
   // console.log(data, "dat");
   // console.log(castData, "castData");
   // console.log(SimilarData, "similarData");
+  const handlePlayVideo = (data) => {
+    setPlayVideoId(data);
+    setPlayVideo(true);
+  };
 
   const duration = (data?.runtime / 60)?.toFixed(1)?.split(".");
 
@@ -76,6 +79,12 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
             src={imageURL + data?.poster_path}
             className="object-cover rounded h-80 w-60"
           />
+          <button
+            onClick={() => handlePlayVideo(data)}
+            className="w-full px-4 py-2 mt-3 text-lg font-bold text-center text-black transition-all bg-white rounded hover:bg-gradient-to-l from-red-500 to-orange-500 hover:scale-105"
+          >
+            Play Now
+          </button>
         </div>
 
         <div>
@@ -161,6 +170,13 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
           media_type={params?.explore}
         />
       </div>
+      {playVideo && (
+        <VideoPlay
+          data={playVideoId}
+          close={() => setPlayVideo(false)}
+          media_type={params?.explore}
+        />
+      )}
     </div>
   );
 };
