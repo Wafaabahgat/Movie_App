@@ -16,36 +16,37 @@ import Loader from "../components/Loader";
 interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
-  const trendingData = useSelector((state:RootState) => state.MovieSlice.bannerData);
+  const trendingData = useSelector(
+    (state: RootState) => state.MovieSlice.bannerData
+  );
 
-  const TopRatedData = useFetchData({
+  const { data: TopRatedData, loading:loadTop } = useFetchData({
     url: "/movie/top_rated",
     action: setTopRated,
     states: "top_rateddata",
   });
 
-  const PlayingData = useFetchData({
+  const { data: PlayingData, loading:loadPlay } = useFetchData({
     url: "/movie/now_playing",
     action: setPlayingData,
     states: "playingdata",
   });
 
-  const TvPopularData = useFetchData({
+  const { data: TvPopularData, loading:loadTVPopul } = useFetchData({
     url: "/tv/popular",
     action: setTvPopular,
     states: "tvpopularddata",
   });
 
-  const TvOnAir = useFetchData({
+  const { data: TvOnAir, loading:loadTVAir} = useFetchData({
     url: "/tv/top_rated",
     action: setTvOnAir,
     states: "tvonair",
   });
 
-  if (!trendingData || !TopRatedData || !PlayingData || !TvPopularData || !TvOnAir) {
+  if (loadTop||loadPlay||loadTVAir||loadTVPopul) {
     return <Loader />;
   }
-
 
   return (
     <div>

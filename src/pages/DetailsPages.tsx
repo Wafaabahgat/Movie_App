@@ -28,13 +28,13 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
     states: "details",
   });
 
-  const { data: castData } = useFetchDetails({
+  const { data: castData, loading: loadCasData } = useFetchDetails({
     url: `/${params?.explore}/${params?.id}/credits`,
     action: setCredits,
     states: "credits",
   });
 
-  const SimilarData = useFetchData({
+  const { data: SimilarData, loading: loadSimi } = useFetchData({
     url: `/${params?.explore}/${params?.id}/similar`,
     action: setSimilarData,
     states: "similar",
@@ -57,7 +57,7 @@ const DetailsPages: FC<DetailsPagesProps> = () => {
 
   console.log(writer, "writer");
 
-  if (loading) {
+  if (loading || loadSimi || loadCasData) {
     return <Loader />;
   }
 
